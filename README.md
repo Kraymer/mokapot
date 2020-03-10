@@ -5,9 +5,9 @@ mokapot
 
 > **/mɔːkapōt/** :
 >
-
-1. italian stove-top coffee maker with an iconic design
-2. french dirty shell script doing everything but coffee
+>
+> 1. italian stove-top coffee maker with an iconic design
+> 2. french dirty shell script doing everything but coffee
 
 # Description
 
@@ -15,9 +15,8 @@ mokapot
 _interactive filtering_ concept.
 
 I love `percol` but thought it was lacking from a practical standpoint,
-forcing me to manipulate `xargs` and `awk` to pipe it with others commands.
-
-Others options would be to use aliases and bash functions but I prefer having
+forcing me to manipulate `xargs` and `awk` to pipe it with others commands.  
+An alternative would be to use aliases and bash functions but I prefer having
 a single script for maintainability.
 
 # Usage
@@ -34,8 +33,16 @@ MODE
     ps          kill processes
 
 OPTIONS
-    The options are passed to the underlying binary (eg 'git' for 'moka git'
+    The options are passed to the underlying binary (eg 'git' for 'moka git')
 ~~~
+
+# Contributing
+
+My use of percol is based on my daily tools hence differs from your needs.
+`mokapot` should be considered as the place where to store your custom percol one-liners rather than a one-size-fits-all utility.  
+
+You're encouraged to fork it, PR won't be merged unless they deal with a generic use case.
+
 
 ---
 <i id="f1">1</i> `git`, `pg` and `psql` at time of writing
