@@ -1,0 +1,89 @@
+#!/bin/bash
+
+
+usage ()
+{
+    echo "USAGE: mokapot [OPTIONS] git_br|git_co|git_st|pg|ps
+Trigger actions on top of unix commands using percol interactive selection
+
+MODE
+    git_br      delete local branches that have been merged
+    git_sh      apply action (add, stash, restore) to locally modified files
+    git_co      apply action (add, stash, restore) to locally modified files
+    pg          drop postgres databases
+    ps          kill processes
+
+OPTIONS
+    The options are passed to the underlying binary (eg 'git' for 'moka git')"
+    exit 0
+}
+
+# Prompt what to do with files reported by the command as modified.
+# $1 - git subcommand
+git_wrapper() {
+
+    while :
+    do
+        lines=`git $@ | percol --initial-index=last | awk '{print $2;}'`
+	lines=`echo $lines`
+
+        if [ -n "$lines" ]; then
+            # Dirty but if no selection, line is "no changes" hence $2 is
+            # "changes"
+            if [[ "$lines" == "changes" ]]; then
+                exit 0
+            fi
+            git diff --cached $lines
+            git diff $lines
+            echo ""
+            read -n 1 -p "Press one key to continue" answer
+            command=`echo "git add $lines
+git restore $lines
+git stash push -m '${lines##*/}' -- $lines
+git restore --staged $lines" | percol`
+            echo $command
+            eval ${command}
+        else
+            exit 0
+        fi
+    done
+}
+
+git_status() {
+    git_wrapper status
+}
+
+git_checkout() {
+    git_wrapper checkout $1
+}
+
+main() {
+    if [ $# -eq 0 ]
+    then
+        usage;
+    fi
+
+    case $1 in
+        -h|--help)
+            usage
+            ;;
+        git_br)
+            git branch -D $(git branch --merged | percol | awk '{print $1;}')
+            ;;
+        git_st)
+            git_status
+            ;;
+        git_co)
+            git_checkout "$2"
+            ;;
+        pg)
+            psql -U postgres -tl|cut -d'|' -f 1| percol| awk '{print $1;}'| xargs -L 1 -t dropdb -U postgres
+            ;;
+        ps)
+            ps aux | percol | awk '{ print $2 }' | xargs kill
+            ;;
+        * ) usage;;
+    esac
+
+}
+main "$@"
