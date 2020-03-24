@@ -3,18 +3,17 @@
 
 usage ()
 {
-    echo "USAGE: pmu [OPTIONS] git_br|git_co|git_st|pg|ps
+    echo "USAGE: pmu git_br|git_co|git_st|pg|ps
 Trigger actions on top of unix commands using percol interactive selection
 
 MODE
     git_br      delete local branches that have been merged
-    git_sh      apply action (add, stash, restore) to locally modified files
-    git_co      apply action (add, stash, restore) to locally modified files
+    git_co      apply action to locally modified files on checkout command
+    git_lg      copy selected commit SHA1 to clipboard
+    git_st      apply action to locally modified files on status command
     psql        drop postgres databases
-    pgrep       kill processes
+    pgrep       kill processes"
 
-OPTIONS
-    The options are passed to the underlying binary (eg 'git' for 'moka git')"
     exit 0
 }
 
