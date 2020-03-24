@@ -45,6 +45,13 @@ You can define `co` and `st` git aliases in your `~/.gitconfig` as replacements 
     trim = "!f() { pmu git_br $1; }; f"
 ~~~
 
+# Examples
+
+### git checkout: stashing modified files before checkout
+  TODO
+  
+### `git log`: copying commit SHA1 to clipboard 
+  <img src="https://raw.githubusercontent.com/Kraymer/public/master/pmu/git_log.gif" width=600>
 
 # Contributing
 
