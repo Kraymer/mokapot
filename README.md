@@ -35,7 +35,7 @@ MODE
 
 # Config
 
-You can define `co` and `st` git aliases in your `~/.gitconfig` to supersede standard `checkout` and `status` commands :
+You can define `co` and `st` git aliases in your `~/.gitconfig` as replacements for `checkout` and `status` commands :
 
 ~~~
 [alias]
