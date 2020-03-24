@@ -3,19 +3,35 @@
 
 usage ()
 {
-    echo "USAGE: mokapot [OPTIONS] git_br|git_co|git_st|pg|ps
+    echo "USAGE: pmu [OPTIONS] git_br|git_co|git_st|pg|ps
 Trigger actions on top of unix commands using percol interactive selection
 
 MODE
     git_br      delete local branches that have been merged
     git_sh      apply action (add, stash, restore) to locally modified files
     git_co      apply action (add, stash, restore) to locally modified files
-    pg          drop postgres databases
-    ps          kill processes
+    psql        drop postgres databases
+    pgrep       kill processes
 
 OPTIONS
     The options are passed to the underlying binary (eg 'git' for 'moka git')"
     exit 0
+}
+
+
+# Detect if given string is a git message meaning no percol selection
+is_git_no_selection_msg() {
+    strings=(
+        "nothing to commit, working tree clean"  # git status
+        "Your branch is up to date with"         # git checkout
+    )
+    for i in "${strings[@]}"; do
+        if [[ "$1" == "$i"* ]]; then
+            echo 0
+            return
+        fi
+    done
+    echo 1
 }
 
 # Prompt what to do with files reported by the command as modified.
@@ -24,27 +40,28 @@ git_wrapper() {
 
     while :
     do
-        lines=`git $@ | percol --initial-index=last | awk '{print $2;}'`
-	lines=`echo $lines`
+        lines=$(git "$@" | percol --auto-fail --initial-index=last --prompt="SELECT FILES")
+	    lines=$(echo $lines)
 
         if [ -n "$lines" ]; then
-            # Dirty but if no selection, line is "no changes" hence $2 is
-            # "changes"
-            if [[ "$lines" == "changes" ]]; then
-                exit 0
+            stop=$(is_git_no_selection_msg "${lines}")
+            if [[ "$stop" == 0 ]]; then
+                return 0
             fi
+
+            lines=$(echo "$lines" | awk '{print $2;}')
             git diff --cached $lines
             git diff $lines
             echo ""
             read -n 1 -p "Press one key to continue" answer
-            command=`echo "git add $lines
+            command=$(echo "git add $lines
 git restore $lines
 git stash push -m '${lines##*/}' -- $lines
-git restore --staged $lines" | percol`
+git restore --staged $lines" | percol)
             echo $command
             eval ${command}
         else
-            exit 0
+            return 0
         fi
     done
 }
@@ -54,6 +71,9 @@ git_status() {
 }
 
 git_checkout() {
+    if [ -n "$(git status --porcelain)" ]; then
+      git_wrapper status
+    fi
     git_wrapper checkout $1
 }
 
@@ -76,11 +96,11 @@ main() {
         git_co)
             git_checkout "$2"
             ;;
-        pg)
-            psql -U postgres -tl|cut -d'|' -f 1| percol| awk '{print $1;}'| xargs -L 1 -t dropdb -U postgres
+        psql)
+            psql -U postgres -tl|cut -d'|' -f 1| percol --prompt "DATABASES TO DELETE"| awk '{print $1;}'| xargs -L 1 -t dropdb -U postgres
             ;;
-        ps)
-            ps aux | percol | awk '{ print $2 }' | xargs kill
+        pgrep)
+            pgrep -fa $2 | percol --prompt "PROCESSES TO KILL" | awk '{ print $1 }' | xargs kill
             ;;
         * ) usage;;
     esac
