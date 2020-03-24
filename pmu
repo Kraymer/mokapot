@@ -40,20 +40,21 @@ git_wrapper() {
 
     while :
     do
-        lines=$(git "$@" | percol --auto-fail --initial-index=last --prompt="SELECT FILES")
-	    lines=$(echo $lines)
+        lines=$(git "$@" | percol --initial-index=last --prompt="SELECT FILES")
+	    lines=$(echo "${lines}")
 
-        if [ -n "$lines" ]; then
+        if [ -n "${lines}" ]; then
             stop=$(is_git_no_selection_msg "${lines}")
             if [[ "$stop" == 0 ]]; then
                 return 0
             fi
 
-            lines=$(echo "$lines" | awk '{print $2;}')
+            lines=$(echo "${lines}" | cut -f 2 -d ":")
             git diff --cached $lines
             git diff $lines
             echo ""
             read -n 1 -p "Press one key to continue" answer
+            lines=$(echo "${lines}" | tr '\r\n' '')
             command=$(echo "git add $lines
 git restore $lines
 git stash push -m '${lines##*/}' -- $lines
