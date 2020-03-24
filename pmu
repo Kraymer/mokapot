@@ -23,6 +23,7 @@ is_git_no_selection_msg() {
     strings=(
         "nothing to commit, working tree clean"  # git status
         "Your branch is up to date with"         # git checkout
+        "no changes added to commit"             # git checkout
     )
     for i in "${strings[@]}"; do
         if [[ "$1" == "$i"* ]]; then
