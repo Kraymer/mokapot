@@ -27,6 +27,7 @@ Trigger actions on top of unix commands using percol interactive selection
 
 MODE
     git_br      delete local branches that have been merged
+    git_lg      copy selected commit SHA1 to clipboard
     git_sh      apply action (add, stash, restore) to locally modified files
     git_co      apply action (add, stash, restore) to locally modified files
     psql        drop postgres databases
@@ -35,23 +36,30 @@ MODE
 
 # Config
 
-You can define `co` and `st` git aliases in your `~/.gitconfig` as replacements for `checkout` and `status` commands :
+You can define git aliases in your `~/.gitconfig` as replacements for standard commands :
 
 ~~~
 [alias]
     # pmu must be present in $PATH
-    st = "!f() { pmu git_st; }; f"
-    co = "!f() { pmu git_co $1; }; f"
+    st = "!f() { pmu git_st; }; f"       # status replacement
+    co = "!f() { pmu git_co $1; }; f"    # checkout replacement
     trim = "!f() { pmu git_br $1; }; f"
 ~~~
 
 # Examples
 
-### git checkout: stashing modified files before checkout
-  TODO
+#### Improved `git checkout`: stashing modified files before checkout
+TODO
   
-### `git log`: copying commit SHA1 to clipboard 
-  <img src="https://raw.githubusercontent.com/Kraymer/public/master/pmu/git_log.gif" width=600>
+#### Improved `git log`: copy commit SHA1 to clipboard 
+
+<img src="https://raw.githubusercontent.com/Kraymer/public/master/pmu/git_log.gif" width=600>
+
+#### Delete git local branches that have been merged
+TODO
+
+#### Kill processes
+TODO
 
 # Contributing
 
