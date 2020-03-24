@@ -22,19 +22,29 @@ a single script for maintainability.
 # Usage
 
 ~~~
-USAGE: pmu [OPTIONS] git_br|git_co|git_st|pg|ps
+USAGE: pmu git_br|git_co|git_st|pg|ps
 Trigger actions on top of unix commands using percol interactive selection
 
 MODE
     git_br      delete local branches that have been merged
     git_sh      apply action (add, stash, restore) to locally modified files
     git_co      apply action (add, stash, restore) to locally modified files
-    pg          drop postgres databases
-    ps          kill processes
-
-OPTIONS
-    The options are passed to the underlying binary (eg 'git' for 'moka git')
+    psql        drop postgres databases
+    pgrep       kill processes
 ~~~
+
+# Config
+
+You can define `co` and `st` git aliases in your `~/.gitconfig` to supersede standard `checkout` and `status` commands :
+
+~~~
+[alias]
+    # pmu must be present in $PATH
+    st = "!f() { pmu git_st; }; f"
+    co = "!f() { pmu git_co $1; }; f"
+    trim = "!f() { pmu git_br $1; }; f"
+~~~
+
 
 # Contributing
 
