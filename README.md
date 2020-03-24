@@ -1,17 +1,20 @@
-mokapot
-=======
+pmu
+===
 
-![](https://raw.githubusercontent.com/Kraymer/public/master/mokapot/cover.png)
+_percol made useful_
+![](https://i.imgur.com/36a11KE.png)
 
-> **/mɔːkapōt/** :
+
+
+> **/pmu/** :
 >
 >
-> 1. italian stove-top coffee maker with an iconic design
-> 2. french dirty shell script doing everything but coffee
+>    1. *noun.* a place where one can bet on horse races, usually a café or tabac
+>    2. *acronym.* Percol Made Useful
 
 # Description
 
-`mokapot` brings actions on top of unix commands<sup id="a1">[1](#f1)</sup> using [`percol`](https://github.com/mooz/percol)
+`pmu` brings actions on top of unix commands<sup id="a1">[1](#f1)</sup> using [`percol`](https://github.com/mooz/percol)
 _interactive filtering_ concept.
 
 I love `percol` but thought it was lacking from a practical standpoint,
@@ -39,7 +42,7 @@ OPTIONS
 # Contributing
 
 My use of percol is based on my daily tools hence differs from your needs.
-`mokapot` should be considered as the place where to store your custom percol one-liners rather than a one-size-fits-all utility.  
+`pmu` should be considered as the place where to store your custom percol one-liners rather than a one-size-fits-all utility.  
 
 You're encouraged to fork it, PR won't be merged unless they deal with a generic use case.
 
