@@ -1,10 +1,7 @@
 pmu
 ===
 
-_percol made useful_
 ![](https://i.imgur.com/36a11KE.png)
-
-
 
 > **/pmu/** :
 >
@@ -25,7 +22,7 @@ a single script for maintainability.
 # Usage
 
 ~~~
-USAGE: mokapot [OPTIONS] git_br|git_co|git_st|pg|ps
+USAGE: pmu [OPTIONS] git_br|git_co|git_st|pg|ps
 Trigger actions on top of unix commands using percol interactive selection
 
 MODE
