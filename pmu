@@ -12,8 +12,8 @@ MODE
     git_lg      copy selected commit SHA1 to clipboard
     git_st      apply action to locally modified files on status command
     psql        drop postgres databases
-    pgrep       kill processes"
-
+    pgrep       kill processes
+    "
     exit 0
 }
 
@@ -85,10 +85,6 @@ git_log() {
 }
 
 main() {
-    if [ $# -eq 0 ]
-    then
-        usage;
-    fi
 
     case $1 in
         -h|--help)
