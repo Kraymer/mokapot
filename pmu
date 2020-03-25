@@ -79,7 +79,7 @@ git_checkout() {
 }
 
 git_log() {
-    sha1=$(git log |bin/percol --select-ignore "^(?!commit ).*"| cut -f 2 -d " " | cut -c -7)
+    sha1=$(git log |bin/percol --prompt "COPY COMMIT" --select-ignore "^(?!commit ).*"| cut -f 2 -d " " | cut -c -7)
     echo ${sha1} copied to clipboard
     echo ${sha1} | xclip
 }
@@ -107,10 +107,10 @@ main() {
             git_log
             ;;
         psql)
-            psql -U postgres -tl|cut -d'|' -f 1| percol --prompt "DATABASES TO DELETE"| awk '{print $1;}'| xargs -L 1 -t dropdb -U postgres
+            psql -U postgres -tl|cut -d'|' -f 1| percol --prompt "DELETE DATABASES"| awk '{print $1;}'| xargs -L 1 -t dropdb -U postgres
             ;;
         pgrep)
-            pgrep -fa $2 | percol --prompt "PROCESSES TO KILL" | awk '{ print $1 }' | xargs kill
+            pgrep -fa $2 | percol --prompt "KILL PROCESSES" | awk '{ print $1 }' | xargs kill
             ;;
         * ) usage;;
     esac
