@@ -19,6 +19,12 @@ forcing me to manipulate `xargs` and `awk` to pipe it with others commands.
 An alternative would be to use aliases and bash functions but I prefer having
 a single script for maintainability.
 
+# Requirements
+
+~~~
+pip install percol git+https://github.com/kraymer/percol.git#egg=percol
+~~~
+
 # Usage
 
 ~~~
@@ -32,6 +38,7 @@ MODE
     git_co      apply action (add, stash, restore) to locally modified files
     psql        drop postgres databases
     pgrep       kill processes
+    rm          remove files
 ~~~
 
 # Config
@@ -48,12 +55,17 @@ You can define git aliases in your `~/.gitconfig` as replacements for standard c
 
 # Examples
 
-#### Improved `git checkout`: stashing modified files before checkout
-TODO
-  
-#### Improved `git log`: copy commit SHA1 to clipboard 
+#### Better `git checkout`: prompt for actions instead of failing miserably
 
+<a href="https://asciinema.org/a/3k9pheFb4KmUXZn0giCYZEPAg">
+    <img src="https://raw.githubusercontent.com/Kraymer/public/master/pmu/git_co.gif" width=600>
+</a>
+  
+#### Better `git log`: copy commit SHA1 to clipboard 
+
+<a href="https://asciinema.org/a/nDJ1LnffsHihjD4MibKYP9ieJ">
 <img src="https://raw.githubusercontent.com/Kraymer/public/master/pmu/git_log.gif" width=600>
+</a>
 
 #### Delete git local branches that have been merged
 TODO
