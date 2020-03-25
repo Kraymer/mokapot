@@ -60,14 +60,14 @@ git_wrapper() {
             fi
             if [ -n "${diff1}" ] || [ -n "${diff2}" ]; then
                 read -n 1 -p "
-Press one key to continue" answer
+Press one key to continue
+" answer
             fi
             lines=$(echo "${lines}" | tr -d '\r' | tr -d '\n')
             command=$(echo "git add $lines
 git restore $lines
 git stash push -m '${lines##*/}' -- $lines
 git restore --staged $lines" | percol)
-            echo $command
             eval ${command}
         else
             return 0
