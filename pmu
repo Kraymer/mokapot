@@ -13,6 +13,7 @@ MODE
     git_st      apply action to locally modified files on status command
     psql        drop postgres databases
     pgrep       kill processes
+    rm          remove files
     "
     exit 0
 }
@@ -63,7 +64,7 @@ git_wrapper() {
 Press one key to continue
 " answer
             fi
-            lines=$(echo "${lines}" | tr -d '\r' | tr -d '\n')
+            lines=$(echo "${lines}" | tr -d '\r' | tr -d '\n' | xargs)
             command=$(echo "git add $lines
 git restore $lines
 git stash push -m '${lines##*/}' -- $lines
@@ -115,6 +116,11 @@ main() {
             ;;
         pgrep)
             pgrep -fa $2 | percol --prompt "KILL PROCESSES" | awk '{ print $1 }' | xargs kill
+            ;;
+        rm)
+            pushd $2
+            ls | percol --prompt "RM FILES" | xargs rm --
+            popd
             ;;
         * ) usage;;
     esac
