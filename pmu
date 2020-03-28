@@ -22,9 +22,11 @@ MODE
 # Detect if given string is a git message meaning no percol selection
 is_git_no_selection_msg() {
     strings=(
-        "nothing to commit, working tree clean"  # git status
-        "Your branch is up to date with"         # git checkout
-        "no changes added to commit"             # git checkout
+        # git status
+        "nothing to commit, working tree clean"
+        # git checkout
+        "Your branch is up to date with"
+        "no changes added to commit"
     )
     for i in "${strings[@]}"; do
         if [[ "$1" == "$i"* ]]; then
