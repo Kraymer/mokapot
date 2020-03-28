@@ -20,20 +20,12 @@ MODE
 
 
 # Detect if given string is a git message meaning no percol selection
-is_git_no_selection_msg() {
-    strings=(
-        # git status
-        "nothing to commit, working tree clean"
-        # git checkout
-        "Your branch is up to date with"
-        "no changes added to commit"
-    )
-    for i in "${strings[@]}"; do
-        if [[ "$1" == "$i"* ]]; then
-            echo 0
-            return
-        fi
-    done
+is_filepath_status() {
+    num_tokens=$(echo ${1} | tr -cd ':' | wc -c)
+    if [[ "$num_tokens" -gt 1 ]]; then
+        echo 0
+        return
+    fi
     echo 1
 }
 
@@ -47,8 +39,8 @@ git_wrapper() {
 	    lines=$(echo "${lines}")
 
         if [ -n "${lines}" ]; then
-            stop=$(is_git_no_selection_msg "${lines}")
-            if [[ "$stop" == 0 ]]; then
+            stop=$(is_filepath_status "${lines}")
+            if [[ "$stop" == 1 ]]; then
                 return 0
             fi
 
