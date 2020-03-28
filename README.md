@@ -70,7 +70,7 @@ You can define git aliases in your `~/.gitconfig` as replacements for standard c
 #### Delete git local branches that have been merged
 
 <a href="https://asciinema.org/a/314226">
-<img src="https://raw.githubusercontent.com/Kraymer/public/master/pmu/git_br.gif" width=600>
+<img src="https://raw.githubusercontent.com/Kraymer/public/master/pmu/git_del_br.gif" width=600>
 </a>
 
 #### Kill processes
