@@ -73,8 +73,6 @@ You can define git aliases in your `~/.gitconfig` as replacements for standard c
 <img src="https://raw.githubusercontent.com/Kraymer/public/master/pmu/git_del_br.gif" width=600>
 </a>
 
-#### Kill processes
-TODO
 
 # Contributing
 
