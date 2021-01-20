@@ -58,19 +58,19 @@ You can define git aliases in your `~/.gitconfig` as replacements for standard c
 #### Better `git checkout`: prompt for actions instead of failing miserably
 
 <a href="https://asciinema.org/a/3k9pheFb4KmUXZn0giCYZEPAg">
-    <img src="https://raw.githubusercontent.com/Kraymer/public/master/pmu/git_co.gif" width=600>
+    <img src="https://github.com/Kraymer/pmu/raw/master/docs/git_co.gif" width=600>
 </a>
   
 #### Better `git log`: copy commit SHA1 to clipboard 
 
 <a href="https://asciinema.org/a/nDJ1LnffsHihjD4MibKYP9ieJ">
-<img src="https://raw.githubusercontent.com/Kraymer/public/master/pmu/git_log.gif" width=600>
+<img src="https://github.com/Kraymer/pmu/raw/master/docs/git_log.gif" width=600>
 </a>
 
 #### Delete git local branches that have been merged
 
 <a href="https://asciinema.org/a/314226">
-<img src="https://raw.githubusercontent.com/Kraymer/public/master/pmu/git_del_br.gif" width=600>
+<img src="https://github.com/Kraymer/pmu/raw/master/docs/git_del_br.gif" width=600>
 </a>
 
 
